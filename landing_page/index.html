@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Coffee Website</title>
+    
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="style_landing.css">
+
+
+    <!-- Google Fonts Links For Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    
+    <!-- AJAX Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+     
+</head>
+
+<body>
+    
+    <header>
+        <nav class="navbar">
+            <a class="logo" href="#">Coffee<span>.</span></a>
+            <ul class="menu-links">
+                <span id="close-menu-btn" class="material-symbols-outlined">close</span>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#review">Review</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <div class="buttons">
+              <a class="signin" onclick="showSignIn()">Sign In</a>
+              <a class="signup" onclick="showSignUp()">Sign Up</a>
+            </div>
+            <span id="hamburger-btn" class="material-symbols-outlined">menu</span>
+        </nav>
+        <link rel="stylesheet" type="text/css" href="../css/landing_Header.css">
+    </header>
+
+    <section class="main-container" id="main-container" onclick="hideMainContainer()">
+        <div class="signin-container" id="signin-container" onclick="stopPropagation(event)">
+            <h1>Login</h1>
+            <form method="post">
+                <div class="txt_field">
+                    <input type="text" name="email" required>
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="userpassword" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <div class="pass">Forgot Password?</div>
+                <button class="login-btn">Login</button>
+                <div class="signup_link">
+                    <h3>Not a member? <a onclick="toggleContainers()">Sign Up</a></h3>
+                </div>
+            </form>
+        </div>
+
+        <div class="signup-container" id="signup-container" onclick="stopPropagation(event)">
+            <h2>Registration</h2>
+            <form>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" name="name" required>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder="E-mail Address" name="useremail" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" id="userpassword" name="userpassword" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required>
+                </div>
+                <p id="confirmation"></p>
+                <div class="policy">
+                    <input type="checkbox" id="accept-checkbox">
+                    <h3 onclick="togglePolicyDetails()">I accept all terms & conditions</h3>
+                </div>
+                <div class="input-box">
+                    <button type="submit" class="register-btn">Create Account</button>
+                </div>
+                <div class="text">
+                    <h3>Already have an account? <a onclick="toggleContainers()">Login</a></h3>
+                </div>
+            </form>
+        </div>
+        
+        <div id="policy-details" class="policy-details" onclick="stopPropagation(event)">
+            <div class="tc">
+                <h1>Terms and Conditions - Inventory Management System Account Creation</h1>
+                <p>Please read these Terms and Conditions ("Agreement") carefully before creating an account with our Inventory Management System ("IMS"). This Agreement sets forth the terms and conditions governing your use of the IMS account.</p>
+            
+                <!-- Agreement content goes here -->
+                <div class="scrollable-div">
+                    <div class="highlight">
+                        <h3 class="highlight-title">1. Acceptance of Terms</h3>
+                        <p class="highlight-content">By creating an account with our IMS, you agree to be bound by the terms and conditions of this Agreement. If you do not agree with any provision of this Agreement, you may not create an account.</p>
+                    </div>
+            
+                    <div class="highlight">
+                        <h3 class="highlight-title">2. Account Creation</h3>
+                        <p class="highlight-content">2.1 Eligibility: You must be at least 18 years old and have the legal authority to enter into this Agreement and create an account.</p>
+                        <p class="highlight-content">2.2 Accuracy: You agree to provide accurate and complete information during the account creation process. You are solely responsible for maintaining the confidentiality of your account information and are liable for all activities that occur under your account.</p>
+                    </div>
+            
+                    <div class="highlight">
+                        <h3 class="highlight-title">3. Use of IMS</h3>
+                        <p class="highlight-content">3.1 Permitted Use: Your IMS account is for your personal or business use to manage your inventory. You may not share your account or provide access to third parties without our explicit consent.</p>
+                        <p class="highlight-content">3.2 Prohibited Activities: You agree not to engage in any illegal, unauthorized, or prohibited activities while using the IMS account. This includes, but is not limited to, unauthorized access, distribution of malware, spamming, or any activity that violates applicable laws or infringes upon the rights of others.</p>
+                    </div>
+            
+                    <div class="highlight">
+                        <h3 class="highlight-title">4. Intellectual Property</h3>
+                        <p class="highlight-content">4.1 Ownership: You acknowledge that we own all intellectual property rights related to the IMS, including but not limited to software, trademarks, copyrights, and other proprietary information.</p>
+                        <p class="highlight-content">4.2 License: We grant you a limited, non-exclusive, non-transferable license to use the IMS solely for the purpose of managing your inventory. You may not modify, distribute, reverse engineer, or create derivative works based on the IMS.</p>
+                    </div>
+            
+                    <div class="highlight">
+                        <h3 class="highlight-title">5. Data Privacy</h3>
+                        <p class="highlight-content">5.1 Data Collection: We may collect certain personal and non-personal information during the account creation process and while you use the IMS. Please refer to our Privacy Policy for details on how we collect, use, and protect your information.</p>
+                        <p class="highlight-content">5.2 Data Security: We employ reasonable security measures to protect your data within the IMS. However, you acknowledge that no data transmission over the internet can be guaranteed to be 100% secure.</p>
+                    </div>
+            
+                    <div class="highlight">
+                        <h3 class="highlight-title">6. Modifications</h3>
+                        <p class="highlight-content">We may modify this Agreement at any time without prior notice. The most recent version of the Agreement will be posted on our website, and your continued use of the IMS after any modifications will signify your acceptance of the updated terms.</p>
+                    </div>
+                </div>
+            
+                <div class="button-container">
+                    <button id="accept-button" class="accept-button" onclick="acceptTerms()" disabled>Accept</button>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="../css/landing_Authentication.css">
+    </section>
+
+    <!-- Home Section -->
+    <section id="home" class="hero-section">
+        <div class="content">
+            <p>
+              Awaken your senses with a steaming cup of liquid motivation.
+            </p>
+            <h2>Start Your Day With Fresh Coffee</h2>
+            <button>Explore</button>
+        </div>
+        <link rel="stylesheet" type="text/css" href="../css/landing_Hero.css">
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="about-content container">
+            <div class="about-imageContent">
+                <img src="../images/aboutImg.jpg" alt="" class="about-img">
+
+                <div class="aboutImg-textBox">
+                    <i class='bx bx-heart heart-icon flex'></i>
+                    <p class="content-description">I really love the Cappucino. The coffee were very smooth.</p>
+                </div>
+            </div>
+
+            <div class="about-details">
+                <div class="about-text">
+                    <h4 class="content-subtitle"><i>Our coffee Shop</i></h4>
+                    <h2 class="content-title">We Combine Classics <br> and Modernity</h2>
+                    <p class="content-description">We appreciate your trust greatly. 
+                        Our clients choose us and our products because theyknow we are the best.
+                    </p>
+                </div>
+
+                <div class="about-buttons flex">
+                    <button class="button">About Us</button>
+                    <a href="#" class="about-link flex">
+                        <span class="link-text">see more</span>
+                        <i class='bx bx-right-arrow-alt about-arrowIcon'></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="../css/landing_About.css">
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section menu">
+        <div class="menu-header">
+            <span class="title">Our Menu</span>
+            <span class="sub-title">Our Popular Menu</span>
+        </div>
+
+        <div class="menu-container">
+          <div class="container">
+              <!-- Canvas for Image -->
+              <div class="canvas">
+                  <canvas id="canvas"></canvas>
+              </div>
+              
+              <!-- Product Name -->
+              <div class="product-name">Espresso</div>
+
+              <!-- Food Description -->
+              <div class="product-description">
+                  <p>A concentrated coffee made by forcing a small amount of nearly boiling water through finely-ground coffee beans. Espresso is the base for many other coffee beverages.</p>
+              </div>
+
+              <!-- Price and order Buttons -->
+              <div class="product-info">
+                  <div class="product-cost">P00.00</div>
+                  <button class="order-button" onclick="showSignIn()">Order now</button>
+              </div>
+          </div>
+
+          <div class="container">
+              <!-- Canvas for Image -->
+              <div class="canvas">
+                  <canvas id="canvas"></canvas>
+              </div>
+              
+              <!-- Product Name -->
+              <div class="product-name">Cappuccino</div>
+
+              <!-- Food Description -->
+              <div class="product-description">
+                  <p>An espresso-based drink that combines equal parts of espresso, steamed milk, and milk foam. It's known for its rich and creamy texture.</p>
+              </div>
+
+              <!-- Price and order Buttons -->
+              <div class="product-info">
+                  <div class="product-cost">P00.00</div>
+                  <button class="order-button" onclick="showSignIn()">Order now</button>
+              </div>
+          </div>
+
+          <div class="container">
+              <!-- Canvas for Image -->
+              <div class="canvas">
+                  <canvas id="canvas"></canvas>
+              </div>
+              
+              <!-- Product Name -->
+              <div class="product-name">Latte</div>
+
+              <!-- Food Description -->
+              <div class="product-description">
+                  <p>Another espresso-based drink, a latte consists of a shot of espresso with a larger amount of steamed milk and only a small amount of milk foam. It's a milder and creamier option compared to cappuccino.</p>
+              </div>
+
+              <!-- Price and order Buttons -->
+              <div class="product-info">
+                  <div class="product-cost">P00.00</div>
+                  <button class="order-button" onclick="showSignIn()">Order now</button>
+              </div>
+          </div>
+
+          <div class="container">
+              <!-- Canvas for Image -->
+              <div class="canvas">
+                  <canvas id="canvas"></canvas>
+              </div>
+              
+              <!-- Product Name -->
+              <div class="product-name">Drip Coffee</div>
+
+              <!-- Food Description -->
+              <div class="product-description">
+                  <p>A simple and classic coffee option made by brewing ground coffee with hot water. It's often served black, but you can customize it with sugar, milk, or other flavorings.</p>
+              </div>
+
+              <!-- Price and order Buttons -->
+              <div class="product-info">
+                  <div class="product-cost">P00.00</div>
+                  <button class="order-button" onclick="showSignIn()">Order now</button>
+              </div>
+          </div>
+
+        </div>
+        <link rel="stylesheet" type="text/css" href="../css/landing_Menu.css">
+    </section>
+
+    <!-- Review Section -->
+    <section id="review" class="section review">
+        <div class="review-header">
+            <span class="title">Our Reviews</span>
+            <span class="sub-title">What Our Customer Says</span>
+        </div>
+
+        <div class="review-container">
+
+            <figure class="snip1533">
+                <figcaption>
+                    <blockquote>
+                        <p>I asked for a cup of coffee, but I got a sip of heaven instead.</p>
+                    </blockquote>
+                    <h3>Eleanor Brewington</h3>
+                </figcaption>
+            </figure>
+
+            <figure class="snip1533">
+                <figcaption>
+                    <blockquote>
+                        <p>This coffee just cured my Monday blues. Doctors hate it!</p>
+                    </blockquote>
+                    <h3>Ursula Gurnmeister</h3>
+                </figcaption>
+            </figure>
+
+            <figure class="snip1533">
+                <figcaption>
+                    <blockquote>
+                        <p>Forget love, fall in coffee. It's a much safer bet.</p>
+                    </blockquote>
+                    <h3>Lucas Mondaycure</h3>
+                </figcaption>
+            </figure>
+
+        </div>
+        <link rel="stylesheet" type="text/css" href="../css/landing_Review.css">
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact">
+        <div class="content">
+            <div class="left box">
+                <div class="upper">
+                  <div class="topic">About us</div>
+                  <p>Streamline your coffee experience with our Coffee Ordering System. Customize, order, and enjoy your favorite brew hassle-free. It's coffee made easy!</p>
+                </div>
+                <div class="lower">
+                  <div class="topic">Contact us</div>
+                  <div class="phone">
+                    <a href="#"><i class="fas fa-phone-volume"></i>+007 9089 6767</a>
+                  </div>
+                  <div class="email">
+                    <a href="#"><i class="fas fa-envelope"></i>abc@gmail.com</a>
+                  </div>
+                </div>
+            </div>
+        <div class="middle box">
+            <div class="topic">Our Services</div>
+            <div><a href="#">Web Design, Development</a></div>
+            <div><a href="#">Web UX Design, Reasearch</a></div>
+            <div><a href="#">Web User Interface Design</a></div>
+            <div><a href="#">Theme Development, Design</a></div>
+            <div><a href="#">Mobile Application Design</a></div>
+            <div><a href="#">Wire raming & Prototyping</a></div>
+        </div>
+        <div class="right box">
+            <div class="topic">Subscribe us</div>
+            <form action="#">
+                <input type="text" placeholder="Enter email address">
+                <input type="submit" name="" value="Send">
+                <div class="media-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </form>
+        </div>
+        </div>
+        <div class="bottom">
+            <p>Copyright © 2020 <a href="#">CIS 1202</a> All rights reserved</p>
+        </div>
+        <link rel="stylesheet" type="text/css" href="../css/landing_Contact.css">
+    </footer>
+
+
+    <!-- Scroll Up -->
+    <a href="#home" class="scrollUp-btn flex">
+        <i class='bx bx-up-arrow-alt scrollUp-icon'></i>
+    </a>
+
+
+    <!-- Header -->
+    <script src="../js/landing_Header.js"></script>
+
+    <!-- Authentication -->
+    <script src="../js/landing_Authentication.js"></script>
+</body>
+</html>
