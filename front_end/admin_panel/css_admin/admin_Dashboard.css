@@ -1,0 +1,313 @@
+/* ===== DASHBOARD ===== */
+.dashboard {
+    position: relative;
+    background: #E4E9F7;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: var(--tran-05);
+    padding: 12px;
+    overflow-y: auto;
+}
+  
+.sidebar.close ~ .dashboard {
+    left: 78px;
+    width: calc(100% - 78px);
+}
+  
+/* Style for the "Dashboard" container */
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 30px;
+}
+
+/* Visual Counts */
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+  
+.boxCount {
+    background: #fff;
+    width: calc(25% - 20px);
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    flex-direction: column;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+}
+
+.text {
+    font-size: 14px;
+}
+
+.number {
+    font-size: 24px;
+}
+
+
+/* Style the RR MR Container */
+.rr-mr-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style the Recently Requested container (left container) */
+.recently-requested {
+    flex-basis: calc(50% - 10px); /* 50% width with some spacing between containers */
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Recent Orders Requested and Button */
+.rr-btn-container {
+    display: flex;
+    justify-content: space-between; /* This positions the button to the right */
+    align-items: center; /* Vertically center-align the content */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.recently-requested h2 {
+    font-size: 18px;
+}
+
+.view-more {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.view-more:hover {
+    background-color: #4d44b4;
+}
+
+.mr-graph {
+    padding: 35px;
+}
+
+#rr-table th {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+tr th {
+    border-bottom: 1px solid #b4b4b4; /* You can adjust the color and thickness as needed */
+}
+
+#rr-table th, 
+#rr-table td {
+    text-align: left;
+}
+
+/* Style the Monthly Revenue container (right container) */
+.monthly-revenue {
+    flex-basis: calc(50% - 10px); /* 50% width with some spacing between containers */
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.monthly-revenue h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 20px;
+}
+
+/* Update for responsiveness using Grid Layout */
+@media (max-width: 768px) {
+    .rr-mr-container {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column for both containers */
+    }
+
+    .recently-requested,
+    .monthly-revenue {
+        flex-basis: 100%; /* Full width when stacked */
+        margin-bottom: 20px; /* Spacing between containers when stacked */
+    }
+}
+
+/* Style for the "Trending Orders" container */
+.trending-orders {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.trending-orders h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 20px;
+}
+
+/* Style for the "Trending Orders" wrapper */
+.trending-orders .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style for the "Trending Orders" cards */
+.trending-orders .wrapper .card {
+    width: calc(25% - 20px); /* Updated width for 4 cards */
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.trending-orders .wrapper .card .circle {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    cursor: default;
+}
+
+.trending-orders .card .circle .box,
+.trending-orders .card .circle .box span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.trending-orders .card .circle .box {
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: all 0.2s;
+}
+
+.trending-orders .card .circle:hover .box {
+    transform: translate(-50%, -50%) scale(0.91);
+}
+
+.trending-orders .card .circle .box span,
+.trending-orders .card .text {
+    background: -webkit-linear-gradient(left, #5146C2, #A1B1FF); /* -- text color -- */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.trending-orders .card .text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.0625em;
+}
+
+.trending-orders .circle .box span {
+    font-size: 38px;
+    font-family: sans-serif;
+    font-weight: 600;
+    transform: translate(-45%, -45%);
+    transition: all 0.1s;
+}
+
+.trending-orders .card .circle:hover .box span {
+    transform: translate(-45%, -45%) scale(1.09);
+}
+
+.trending-orders .card .text {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+@media (max-width: 753px) {
+    .trending-orders .wrapper {
+        max-width: 700px;
+    }
+    .trending-orders .wrapper .card {
+        width: calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 505px) {
+    .trending-orders .wrapper {
+        max-width: 500px;
+    }
+    .trending-orders .wrapper .card {
+        width: 100%;
+    }
+}
+
+/* Style for the "Recently Placed Orders" container */
+.recent-orders-table {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    overflow-y: auto;
+}
+  
+.recent-orders-table h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 20px;
+}
+  
+.recent-orders-table::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+
+@media(max-width: 753px){
+    .boxes,
+    .trend-wrapper {
+      max-width: 700px;
+    }
+    .boxes .boxCount,
+    .trend-wrapper .trend-card {
+      width: calc(50% - 20px);
+      margin-bottom: 20px;
+    }
+}
+  
+@media(max-width: 505px){
+    .boxes,
+    .trend-wrapper {
+      max-width: 500px;
+    }
+    .boxes .boxCount,
+    .trend-wrapper .trend-card {
+      width: 100%;
+    }
+}

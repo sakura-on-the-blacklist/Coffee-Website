@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title> Admin Panel</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" type="text/css" href="style_adminPanel.css">
+    
+    <!-- Icon Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Ajax Links -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"></script>
+
+    <!-- Chart.js (graph) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js" integrity="sha512-CWVDkca3f3uAWgDNVzW+W4XJbiC3CH84P2aWZXj+DqI6PNbTzXbl1dIzEHeNJpYSn4B6U8miSZb/hCws7FnUZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar close">
+        <header>
+            <div class="image-text">
+                <div class="text logo-text">
+                    <span class="name">Shrek Ogre</span>
+                    <span class="email">someone@email.com</span>
+                </div>
+                <i class='bx bx-menu toggle' id="btn"></i>
+            </div>
+        </header>
+
+        <!-- sidebar content -->
+        <ul class="nav-links">
+            <li>
+                <a href="#dashboard">
+                    <i class='bx bx-home-alt icon' ></i>
+                    <span class="link_name active">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name active" href="#dashboard">Dashboard</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class='bx bx-box icon' ></i>
+                        <span class="link_name">Menus</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow' ></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Menus</a></li>
+                    <li><a href="#product-category">Product Category</a></li>
+                    <li><a href="#product-list">Product List</a></li>
+                    <li><a href="#add-product">Add Product</a></li>
+                    <li><a href="#product-detail">Product Detail</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#orders">
+                    <i class='bx bx-notepad icon' ></i>
+                <span class="link_name">Orders</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#orders">Orders</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class='bx bx-file icon' ></i>
+                        <span class="link_name">Invoice</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow' ></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Invoice</a></li>
+                    <li><a href="#invoice-list">Invoice List</a></li>
+                    <li><a href="#invoice-details">Invoice Details</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class='bx bx-group icon' ></i>
+                        <span class="link_name">Customers</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow' ></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Customers</a></li>
+                    <li><a href="#customer-list">Customer List</a></li>
+                    <li><a href="#customer-review">Customer Review</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#sales">
+                    <i class='bx bx-briefcase icon' ></i>
+                    <span class="link_name">Sales</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#sales">Sales</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" onclick="openLogoutPopup()">
+                    <i class='bx bx-log-out icon'></i>
+                    <span class="link_name">Logout</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#" onclick="openLogoutPopup()">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <link rel="stylesheet" type="text/css" href="css/admin_Sidebar.css">
+    </div>
+
+    
+    <!-- DASHBOARD -->
+    <section class="dashboard" style="display: block;">
+        <div class="dashboard-container">
+
+            <!-- Counts -->
+            <div class="boxes">
+                <div class="boxCount box-1">
+                    <span class="text">Products Sold</span>
+                    <span class="number" id="soldCount">0</span>
+                </div>
+                <div class="boxCount box-2">
+                    <span class="text">Total Visitors</span>
+                    <span class="number" id="visitCount">0</span>
+                </div>
+                <div class="boxCount box-3">
+                    <span class="text">New Users</span>
+                    <span class="number" id="usersCount">0</span>
+                </div>
+                <div class="boxCount box-4">
+                    <span class="text">Total Orders</span>
+                    <span class="number" id="ordersCount">0</span>
+                </div>
+            </div>
+
+            
+            <!-- RR MR Container -->
+            <div class="rr-mr-container">
+
+                <!-- Recently Requested -->
+                <div class="recently-requested">
+                    <div class="rr-btn-container">
+                        <h2>Recent Orders Requested</h2>
+                        <button class="view-more" id="viewOrders">View More</button> <!-- Add your button text and attributes here -->
+                    </div>
+                    <table id="rr-table">
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr>
+                            <td>101</td>
+                            <td>Widget A</td>
+                            <td>$10.99</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Widget B</td>
+                            <td>$15.49</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Widget C</td>
+                            <td>$8.99</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>Widget D</td>
+                            <td>$12.75</td>
+                        </tr>
+                        <tr>
+                            <td>105</td>
+                            <td>Widget E</td>
+                            <td>$9.99</td>
+                        </tr>                        
+                    </table>
+                </div>
+
+                <!-- Monthly Revenue -->
+                <div class="monthly-revenue">
+                    <h2>Monthly Revenue</h2>
+                    <div class="mr-graph">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trending Orders(Averages) -->
+            <div class="trending-orders">
+                <h2>Trending Orders</h2>
+                <!-- add progress bars in average of how many people ordered and how many people like this product -->
+                <div class="wrapper">
+                    <div class="card trendingFood-1">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="card trendingFood-2">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="card trendingFood-3">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="card trendingFood-4">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <div class="recent-orders-table">
+                <h2>Recently Placed Orders</h2>
+                <table id="recentOrdersTable">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product Name</th>
+                        <th>Customer Name</th>
+                        <th>Location</th>
+                        <th>Order Status</th> <!-- Pending, Cancelled, Delivered -->
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Order Date</th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Dashboard.css">
+    </section>
+
+
+    <!-- MENUS -->
+    <!-- PRODUCT CATEGORY -->
+    <section class="product-category" style="display: none;">
+        <div class="product-category-container">
+            
+            <!-- Check Admin_Menu.JS -->
+
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Menus.css">
+    </section>
+
+
+    <!-- PRODUCT LIST -->
+    <section class="product-list" style="display: none;">
+        <div class="product-list-container">
+            
+            <!-- Check Admin_Menu.JS -->
+            <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget metus id ante facilisis bibendum. -->
+
+        </div>
+        <link rel="stylesheet" href="css/admin_Menus.css">
+    </section>
+
+
+    <!-- ADD PRODUCT -->
+    <section class="add-product" style="display: none;">
+        <div class="add-product-container">
+
+            <!-- Add Product Form -->
+            <div class="add-product-form">
+                <h2>Add Product</h2>
+                <form id="productForm">
+                    <div class="form-single">
+                        <label for="product-name">Product Name</label>
+                        <input type="text" id="product-name" name="product-name" placeholder="Name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="select-category">Category</label>
+                            <select id="category" name="category">
+                                <option value="" selected>Choose...</option>
+                                <option value="Cheeseburgers">Cheeseburgers</option>
+                                <option value="Baconburgers">Baconburgers</option>
+                                <option value="Ultimate Birthday Burger">Ultimate Birthday Burger</option>
+                                <option value="Hungarian Sausage Sandwhich">Hungarian Sausagewich</option>
+                                <option value="Nacho Chips">Nacho Chips</option>
+                                <option value="Fries">Fries</option>
+                                <option value="Chicken Nuggets">Chicken Nuggets</option>
+                                <option value="Asian Salad">Asian Salad</option>
+                                <option value="Set Burger Meals">Set Burger Meals</option>
+                                <option value="Rice Meals">Rice Meals</option>
+                                <!-- Add category options here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" name="price" value="10">
+                        </div>
+                    </div>
+                    <div class="form-single">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="5" placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-single">
+                        <label for="product-img">Product Image</label>
+                        <input type="file" name="image" accept="image/jpeg, image/png" id=finput onchange="upload()" required>
+                    </div>
+
+                    <div id="uploadedImages">
+                        <!-- Display uploaded image filenames here -->
+                    </div>  
+                </form>
+            </div>
+
+            <!-- Product Preview -->
+            <div class="product-preview">
+                <h2>Product Preview</h2>
+                <div class="imageContainer">
+                    <div class="imagePreview" id="imagePreview">
+                        <canvas id= "mainCanvas" ></canvas>
+                    </div>
+                    <div class="bottomGallery" id="bottomGallery">
+                        <div class="imageGallery"></div>
+                    </div>
+                </div>
+                <div class="status-switch">
+                    <label for="status">Status Available</label>
+                    <label class="switch">
+                        <input type="checkbox" id="status" name="status">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="discount-switch">
+                    <label for="discount">Discount Available</label>
+                    <div class="rangeContainer">  
+                        <input type="range" min="0" max="100" value="0" class="rangeSlider" id="myRange">
+                        <div id="rangeValue">0%</div>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button class="save" id="saveProduct" onclick="saveProduct()">Save</button>
+                    <button class="save-add" id="saveAndAdd" onclick="saveAndAdd()">Save and Add</button>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Menus.css">
+    </section>
+
+
+    <!-- PRODUCT DETAIL -->
+    <section class="product-detail" style="display: none;">
+        <div class="product-detail-container">
+
+
+            <div class="product-detail-top">
+                <h2>Product Details</h2>
+                <div class="displayImageContainer">
+                    <div class="imagePreview" id="imagePreview2">
+                        <canvas id="displayCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="product-detail-bottom">
+                <!-- Product Info (Left Side) -->
+                <div class="product-info" id="productInfo">
+                    <h2>Product Info</h2>
+                    <div class="info-item">
+                        <label for="price">Price</label>
+                        <span id="priceSpan"></span>
+                    </div>
+                    <div class="info-item">
+                        <label for="category">Category</label>
+                        <span id="categorySpan"></span>
+                    </div>
+                    <div class="info-item">
+                        <label for="availability">Availability</label>
+                        <span id="availabilitySpan"></span>
+                    </div>
+                    <div class="info-item">
+                        <label for="delivery-fee">Delivery Fee</label>
+                        <span id="delivery-fee"></span>
+                    </div>
+                    <div class="info-item">
+                        <label for="discount-fee">Discount</label>
+                        <span id="discount-feeSpan"></span>
+                    </div>
+                    <div class="button-container">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </div>
+                </div>
+        
+                <!-- Product Description (Right Side) -->
+                <div class="product-description" id="productDescription">
+                    <h2>Product Description</h2>
+                    <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper mattis metus, at congue velit 
+                        finibus nec. -->
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Menus.css">
+    </section>
+    
+    
+    <!-- ORDERS --> <!-- new orders will appear top, while older appears at the bottom --> <!-- this only happens in the ordering page --><!-- should be based on transaction -->
+    <section class="orders" style="display: none;">
+        <div class="orders-container">
+            
+            <!-- Favourite Orders(Averages) -->
+            <div class="fav-orders">
+                <h2>Favourite Orders</h2>
+                <!-- add progress bars in average of how many people ordered and how many people like this product -->
+                <div class="wrapper">
+                    <div class="card avgFood-1">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="card avgFood-2">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="card avgFood-3">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="card avgFood-4">
+                        <div class="text"></div>
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-table">
+                <h2>Orders List</h2>
+                <table id="ordersTable">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product Name</th>
+                        <th>Customer Name</th>
+                        <th>Location</th>
+                        <th>Order Status</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Order Date</th>
+                    </tr>
+                    <tr>
+                        <td>DUB001</td>
+                        <td>Single Bacon CB</td>
+                        <td>John Doe</td>
+                        <td>Cebu City</td>
+                        <td>Delivered</td>
+                        <td>Bacon Cheeseburger</td>
+                        <td>₱150.00</td>
+                        <td>2023-01-15</td>
+                    </tr>
+                    <tr>
+                        <td>DUB002</td>
+                        <td>Double Bacon CB</td>
+                        <td>Jane Smith</td>
+                        <td>Cebu City</td>
+                        <td>Pending</td>
+                        <td>Bacon Cheeseburger</td>
+                        <td>₱180.00</td>
+                        <td>2023-02-02</td>
+                    </tr>
+                    <tr>
+                        <td>DUB003</td>
+                        <td>Cheesy Hungarian</td>
+                        <td>Bob Johnson</td>
+                        <td>Cebu City</td>
+                        <td>Cancelled</td>
+                        <td>Hungarian Sausage Sandwhich</td>
+                        <td>₱200.00</td>
+                        <td>2023-03-10</td>
+                    </tr>
+                    <tr>
+                        <td>DUB004</td>
+                        <td>Supreme Fries</td>
+                        <td>Alice Davis</td>
+                        <td>Cebu City</td>
+                        <td>Delivered</td>
+                        <td>Fries</td>
+                        <td>₱120.00</td>
+                        <td>2023-04-05</td>
+                    </tr>                  
+                </table>
+            </div>
+
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Orders.css">
+    </section>
+
+
+    <!-- INVOICES -->
+    <!-- Invoice List -->
+    <section class="invoice-list" style="display: none;">
+        <div class="invoice-list-container">
+            
+            <!-- Invoice List -->
+            <div class="invoice-list-table">
+                <h2>Invoice List</h2>
+                <table>
+                    <tr>
+                        <th>Invoice ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer ID</th>
+                        <th>Invoice Date</th>
+                        <th>Quantity</th>
+                        <th>Total Bill</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1000101</td>
+                        <td>Claire</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>2</td>
+                        <td>P34</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1000101</td>
+                        <td>Russel</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>1</td>
+                        <td>P23</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1000101</td>
+                        <td>Zen</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>2</td>
+                        <td>P49</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1000101</td>
+                        <td>Nico</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>1</td>
+                        <td>P27</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1000101</td>
+                        <td>Farah</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>2</td>
+                        <td>P42</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>Claire</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>1</td>
+                        <td>P32</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>Russel</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>3</td>
+                        <td>P72</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>Zen</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>4</td>
+                        <td>P94</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>Nico</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>1</td>
+                        <td>P45</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>Farah</td>
+                        <td>(Food)</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>1</td>
+                        <td>P20</td>
+                        <td>
+                            <i class="fa-solid fa-paper-plane" style="color: #30a445;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-trash-alt" style="color: #e05454;"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Invoice.css">
+    </section>
+
+
+    <!-- Invoice Details -->
+    <section class="invoice-details" style="display: none;">
+        <div class="invoice-details-container">
+
+            <!-- Invoice -->
+            <div class="invoice">
+                <div class="invoice-heading">
+                    <span>Invoice</span>
+                    <span>#151612</span> <!--Invoice ID-->
+                </div>
+                
+                <span class="subject">Receiver</span>
+                
+                <div class="recipient-details">
+                    <span class="recipient-name">(Customer's Full Name)</span>
+                    <span class="recipient-email">(Customer's Email Address)</span>
+                </div>
+
+                <div class="additional-info">
+                    <div class="recipient-address">
+                        <span class="address">1642 Cambridge Drive, Phoenix, 85029 Arizona</span>
+                        <span class="city">Pheonix, Arizona</span>
+                        <span class="postal-code">85001</span>
+                    </div>
+
+                    <div class="recipient-date">
+                        <span class="invoice-date">Invoice Date : Saturday, April 07 2022</span>
+                        <span class="due-date">Due Date : Sunday, April 19 2022</span>
+                    </div>
+                </div>
+
+                <div class="invoice-detail-table"> <!-- dynamically add rows based on how many items the customer bought-->
+                    <table>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Cost</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td>1000101</td>
+                            <td>(Food)</td>
+                            <td>1</td>
+                            <td>P34</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1000101</td>
+                            <td>(Food)</td>
+                            <td>3</td>
+                            <td>P23</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1000101</td>
+                            <td>(Food)</td>
+                            <td>2</td>
+                            <td>P49</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1000101</td>
+                            <td>(Food)</td>
+                            <td>1</td>
+                            <td>P27</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1000101</td>
+                            <td>(Food)</td>
+                            <td>2</td>
+                            <td>P42</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total Cost</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="invoice-buttons">
+                    <button class="print-send">Print Invoice</button>
+                    <button class="print-send">Send Invoice</button>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Invoice.css">
+    </section>
+
+
+    <!-- CUSTOMERS LIST -->
+    <section class="customer-list" style="display: none;">
+        <div class="customer-list-container">
+            
+            <!-- Customer List -->
+            <div class="customer-list-table">
+                <h2>Customers List</h2>
+
+                <div class="filterCustomer-container">
+                    <div class="customer-select-container">
+                        <label for="customer-show-items">Show: </label>
+                        <div class="customer-select-menu">
+                            <div class="customer-select-btn">
+                                <span class="customer-sBtn-text">10</span>
+                                <i class="bx bx-chevron-down"></i>
+                            </div>
+                    
+                            <ul class="customer-options">
+                                <li class="customer-option">
+                                    <span class="customer-option-text">10</span>
+                                </li>
+                                <li class="customer-option">
+                                    <span class="customer-option-text">25</span>
+                                </li>
+                                <li class="customer-option">
+                                    <span class="customer-option-text">50</span>
+                                </li>
+                                <li class="customer-option">
+                                    <span class="customer-option-text">100</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search-customer">
+                        <input spellcheck="false" type="text" placeholder="Search Data..." oninput="searchTable()">
+                    </div>
+                </div>
+
+                <table id="customer-list-table">
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Registered At</th>
+                    </tr>
+                    <tr>
+                        <td>54321</td>
+                        <td>user543</td>
+                        <td>user543@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 14:35:00</td>
+                    </tr>
+                    <tr>
+                        <td>98765</td>
+                        <td>john_doe</td>
+                        <td>john.doe@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 14:40:00</td>
+                    </tr>
+                    <tr>
+                        <td>23456</td>
+                        <td>jane_smith</td>
+                        <td>jane.smith@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 14:45:00</td>
+                    </tr>
+                    <tr>
+                        <td>87654</td>
+                        <td>user876</td>
+                        <td>user876@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 14:50:00</td>
+                    </tr>
+                    <tr>
+                        <td>67890</td>
+                        <td>alice_wonderland</td>
+                        <td>alice.wonderland@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 14:55:00</td>
+                    </tr>
+                    <tr>
+                        <td>45678</td>
+                        <td>bob123</td>
+                        <td>bob123@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 15:00:00</td>
+                    </tr>
+                    <tr>
+                        <td>34567</td>
+                        <td>user345</td>
+                        <td>user345@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 15:05:00</td>
+                    </tr>
+                    <tr>
+                        <td>78901</td>
+                        <td>sarah_doe</td>
+                        <td>sarah.doe@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 15:10:00</td>
+                    </tr>
+                    <tr>
+                        <td>12345</td>
+                        <td>user123</td>
+                        <td>user123@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 15:15:00</td>
+                    </tr>
+                    <tr>
+                        <td>89012</td>
+                        <td>alex_smith</td>
+                        <td>alex.smith@email.com</td>
+                        <td>********</td>
+                        <td>2023-10-08 15:20:00</td>
+                    </tr>
+                </table>
+                <br>
+                <div class="customer-table-info-container">
+                    <div id="customer-table-description"></div>
+                    <div class="customer-pagination">
+                        <ul><!--pages or li are comes from javascript --></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Customers.css">
+    </section>
+
+
+    <!-- CUSTOMERS REVIEW -->
+    <section class="customer-review" style="display: none;">
+        <div class="customer-review-container">
+            <!-- continue later -->
+            <div class="container">
+                
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Customers.css">
+    </section>
+
+
+    <!-- SALES -->
+    <section class="sales" style="display: none;">
+        <div class="sales-container">
+
+            <!-- Sales Table -->
+            <div class="sales-table">
+                <h2>Product Sale</h2>
+
+                <div class="filter-container">
+                    <div class="select-container">
+                        <label for="sales-show-items">Show: </label>
+                        <div class="select-menu">
+                            <div class="select-btn">
+                                <span class="sBtn-text">10</span>
+                                <i class="bx bx-chevron-down"></i>
+                            </div>
+                    
+                            <ul class="options">
+                                <li class="option">
+                                    <span class="option-text">10</span>
+                                </li>
+                                <li class="option">
+                                    <span class="option-text">25</span>
+                                </li>
+                                <li class="option">
+                                    <span class="option-text">50</span>
+                                </li>
+                                <li class="option">
+                                    <span class="option-text">100</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search">
+                        <input spellcheck="false" type="text" placeholder="Search Data..." oninput="searchTable()">
+                    </div>
+                </div>                
+
+                <table id="sales-table">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>(Food)</td>
+                        <td></td>
+                        <td>P54.49</td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>(Food)</td>
+                        <td></td>
+                        <td>P54.49</td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>(Food)</td>
+                        <td></td>
+                        <td>P54.49</td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>(Food)</td>
+                        <td></td>
+                        <td>P54.49</td>
+                    </tr>
+                    <tr>
+                        <td>01001011</td>
+                        <td>(Food)</td>
+                        <td></td>
+                        <td>P54.49</td>
+                    </tr>
+
+                    <!-- delete this, for testing purposes -->
+                    <tr>
+                        <td>02002022</td>
+                        <td>(Electronics)</td>
+                        <td></td>
+                        <td>P99.99</td>
+                    </tr>
+                    <tr>
+                        <td>03003033</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P29.99</td>
+                    </tr>
+                    <tr>
+                        <td>04004044</td>
+                        <td>(Toys)</td>
+                        <td></td>
+                        <td>P14.99</td>
+                    </tr>
+                    <tr>
+                        <td>05005055</td>
+                        <td>(Books)</td>
+                        <td></td>
+                        <td>P19.99</td>
+                    </tr>
+                    <tr>
+                        <td>06006066</td>
+                        <td>(Home Decor)</td>
+                        <td></td>
+                        <td>P49.99</td>
+                    </tr>
+                    <tr>
+                        <td>07007077</td>
+                        <td>(Garden)</td>
+                        <td></td>
+                        <td>P39.99</td>
+                    </tr>
+                    <tr>
+                        <td>08008088</td>
+                        <td>(Beauty)</td>
+                        <td></td>
+                        <td>P9.99</td>
+                    </tr>
+                    <tr>
+                        <td>09009099</td>
+                        <td>(Sports)</td>
+                        <td></td>
+                        <td>P79.99</td>
+                    </tr>
+                    <tr>
+                        <td>10101010</td>
+                        <td>(Electronics)</td>
+                        <td></td>
+                        <td>P149.99</td>
+                    </tr>
+                    <tr>
+                        <td>11111111</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P39.99</td>
+                    </tr>
+                    <tr>
+                        <td>12121212</td>
+                        <td>(Toys)</td>
+                        <td></td>
+                        <td>P24.99</td>
+                    </tr>
+                    <tr>
+                        <td>13131313</td>
+                        <td>(Books)</td>
+                        <td></td>
+                        <td>P14.99</td>
+                    </tr>
+                    <tr>
+                        <td>14141414</td>
+                        <td>(Home Decor)</td>
+                        <td></td>
+                        <td>P59.99</td>
+                    </tr>
+                    <tr>
+                        <td>15151515</td>
+                        <td>(Garden)</td>
+                        <td></td>
+                        <td>P49.99</td>
+                    </tr>
+                    <tr>
+                        <td>16161616</td>
+                        <td>(Beauty)</td>
+                        <td></td>
+                        <td>P19.99</td>
+                    </tr>
+                    <tr>
+                        <td>17171717</td>
+                        <td>(Sports)</td>
+                        <td></td>
+                        <td>P89.99</td>
+                    </tr>
+                    <tr>
+                        <td>18181818</td>
+                        <td>(Electronics)</td>
+                        <td></td>
+                        <td>P199.99</td>
+                    </tr>
+                    <tr>
+                        <td>19191919</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P34.99</td>
+                    </tr>
+                    <tr>
+                        <td>20202020</td>
+                        <td>(Toys)</td>
+                        <td></td>
+                        <td>P9.99</td>
+                    </tr>
+                    <tr>
+                        <td>11111111</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P39.99</td>
+                    </tr>
+                    <tr>
+                        <td>02002022</td>
+                        <td>(Electronics)</td>
+                        <td></td>
+                        <td>P99.99</td>
+                    </tr>
+                    <tr>
+                        <td>03003033</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P29.99</td>
+                    </tr>
+                    <tr>
+                        <td>04004044</td>
+                        <td>(Toys)</td>
+                        <td></td>
+                        <td>P14.99</td>
+                    </tr>
+                    <tr>
+                        <td>05005055</td>
+                        <td>(Books)</td>
+                        <td></td>
+                        <td>P19.99</td>
+                    </tr>
+                    <tr>
+                        <td>06006066</td>
+                        <td>(Home Decor)</td>
+                        <td></td>
+                        <td>P49.99</td>
+                    </tr>
+                    <tr>
+                        <td>07007077</td>
+                        <td>(Garden)</td>
+                        <td></td>
+                        <td>P39.99</td>
+                    </tr>
+                    <tr>
+                        <td>08008088</td>
+                        <td>(Beauty)</td>
+                        <td></td>
+                        <td>P9.99</td>
+                    </tr>
+                    <tr>
+                        <td>09009099</td>
+                        <td>(Sports)</td>
+                        <td></td>
+                        <td>P79.99</td>
+                    </tr>
+                    <tr>
+                        <td>10101010</td>
+                        <td>(Electronics)</td>
+                        <td></td>
+                        <td>P149.99</td>
+                    </tr>
+                    <tr>
+                        <td>11111111</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P39.99</td>
+                    </tr>
+                    <tr>
+                        <td>12121212</td>
+                        <td>(Toys)</td>
+                        <td></td>
+                        <td>P24.99</td>
+                    </tr>
+                    <tr>
+                        <td>13131313</td>
+                        <td>(Books)</td>
+                        <td></td>
+                        <td>P14.99</td>
+                    </tr>
+                    <tr>
+                        <td>14141414</td>
+                        <td>(Home Decor)</td>
+                        <td></td>
+                        <td>P59.99</td>
+                    </tr>
+                    <tr>
+                        <td>15151515</td>
+                        <td>(Garden)</td>
+                        <td></td>
+                        <td>P49.99</td>
+                    </tr>
+                    <tr>
+                        <td>16161616</td>
+                        <td>(Beauty)</td>
+                        <td></td>
+                        <td>P19.99</td>
+                    </tr>
+                    <tr>
+                        <td>17171717</td>
+                        <td>(Sports)</td>
+                        <td></td>
+                        <td>P89.99</td>
+                    </tr>
+                    <tr>
+                        <td>18181818</td>
+                        <td>(Electronics)</td>
+                        <td></td>
+                        <td>P199.99</td>
+                    </tr>
+                    <tr>
+                        <td>19191919</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P34.99</td>
+                    </tr>
+                    <tr>
+                        <td>20202020</td>
+                        <td>(Toys)</td>
+                        <td></td>
+                        <td>P9.99</td>
+                    </tr>
+                    <tr>
+                        <td>11111111</td>
+                        <td>(Clothing)</td>
+                        <td></td>
+                        <td>P39.99</td>
+                    </tr>
+                </table>
+                <br>
+                <div class="sales-table-info-container">
+                    <div id="sales-table-description">
+                        <!-- Showing 1 to x of x | Page 1 of x -->
+                    </div>
+                    <div class="sales-pagination">
+                        <ul>
+                            <!--pages or li comes from javascript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" type="text/css" href="css/admin_Sales.css">
+    </section>
+
+
+    <!-- Logout Confirmation Popup -->
+    <div id="logoutOverlay" class="overlay">
+        <div class="popup">
+            <p>Are you sure you want to log out?</p>
+            <div class="logout-btnContainer">
+                <button class="closeLogout" onclick="closeLogoutPopup()">Cancel</button>
+                <button class="logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <script src="js/admin_Sidebar.js"></script>
+
+        <!-- Dashboard -->
+        <script src="js/admin_Dashboard.js"></script>
+
+        <!-- Menus -->
+        <script src="js/admin_Menus.js"></script>
+
+        <!-- Orders -->
+        <script src="js/admin_Orders.js"></script>
+
+        <!-- Invoice -->
+        <script src="js/admin_Invoice.js"></script>
+
+        <!-- Customers -->
+        <script src="js/admin_Customers.js"></script>
+
+        <!-- Sales -->
+        <script src="js/admin_Sales.js"></script>
+
+</body>
+</html>

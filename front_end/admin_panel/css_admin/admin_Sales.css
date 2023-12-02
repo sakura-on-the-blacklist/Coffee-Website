@@ -1,0 +1,225 @@
+/* ===== SALES ===== */
+.sales{
+    position: relative;
+    background: #E4E9F7;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: var(--tran-05);
+    padding: 12px;
+    overflow-y: auto;
+}
+  
+.sidebar.close ~ .sales{
+    left: 78px;
+    width: calc(100% - 78px);
+}
+  
+/* Style for the "Product Sales" container */
+.sales-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Style for "Filter" container */
+.filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Style for "Show Items" container */
+.select-container {
+    display: flex;
+    align-items: center;
+}
+
+#sales-show-items {
+    margin-bottom: 10px;
+}
+
+.select-menu{
+    width: 60px;
+    margin-left: 10px;
+    border-radius: 4px;
+    border: 1px solid #B3B3B3;
+}
+
+.select-menu .select-btn{
+    display: flex;
+    background: #fff;
+    padding: 5px;
+    font-weight: 400;
+    border-radius: 4px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-around;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.select-btn i{
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.select-menu.active .select-btn i{
+    transform: rotate(-180deg);
+}
+
+.select-menu .options{
+    position: relative;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #B3B3B3;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.select-menu.active .options{
+    position: absolute;
+    display: block;
+    width: 60px;
+}
+
+.options .option{
+    display: flex;
+    cursor: pointer;
+    padding: 0 5px;
+    border-radius: 4px;
+    align-items: center;
+    background: #fff;
+}
+
+.options .option:hover{
+    background: #F2F2F2;
+}
+
+.option i{
+    font-size: 25px;
+    margin-right: 12px;
+}
+
+.option .option-text{
+    font-size: 18px;
+    color: #333;
+}
+
+
+/* Style for "Search Data" container */
+.search input{
+    width: fit-content;
+    outline: none;
+    font-size: 17px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #B3B3B3;
+}
+
+.search input:focus{
+    outline: 2px solid #695CFE;
+}
+
+.search input::placeholder{
+    color: #bfbfbf;
+}
+
+/* Style for the "Sales Table" container */
+.sales-table {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    overflow-y: auto;
+}
+  
+.sales-table h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 20px;
+}
+  
+.sales-table::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+  
+#sales-table th, 
+#sales-table td {
+    text-align: left;
+}
+
+.sales-table-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sales-table-description {
+    color: #707070;
+    font-size: 15px;
+}
+
+
+/* Pagination */
+.sales-pagination ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+}
+
+.sales-pagination ul li{
+    color: var(--primary-color);
+    list-style: none;
+    line-height: 45px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.sales-pagination ul li.numb{
+    list-style: none;
+    height: 45px;
+    width: 45px;
+    margin: 0 3px;
+    line-height: 45px;
+    border-radius: 50%;
+}
+
+.sales-pagination ul li.numb.first{
+    margin: 0px 3px 0 -5px;
+}
+
+.sales-pagination ul li.numb.last{
+    margin: 0px -5px 0 3px;
+}
+
+.sales-pagination ul li.dots{
+    font-size: 22px;
+    cursor: default;
+}
+
+.sales-pagination ul li.btn{
+    padding: 0 20px;
+    border-radius: 50px;
+}
+
+.sales-pagination li.active,
+.sales-pagination ul li.numb:hover,
+.sales-pagination ul li:first-child:hover,
+.sales-pagination ul li:last-child:hover{
+    color: #fff;
+    background: var(--primary-color);
+}

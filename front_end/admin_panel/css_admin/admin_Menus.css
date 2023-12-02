@@ -1,0 +1,640 @@
+/* ===== MENU CATALOGUE ===== */
+.product-category {
+    position: relative;
+    background: var(--body-color);
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: var(--tran-05);
+    padding: 12px;
+    overflow-y: auto;
+}
+  
+.sidebar.close ~ .product-category{
+    left: 78px;
+    width: calc(100% - 78px);
+}
+  
+/* Style for the "Menu Grid" container */
+.product-category-container {
+    display: grid;
+    align-content: start;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+  
+/* Container for the whole item */
+.product-category-container > .container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    gap: 15px;
+    height: fit-content;
+    background: #fff;
+}
+  
+/* Style for the food name and cost section */
+.food-info {
+    display: flex;
+    justify-content: space-between;
+}
+  
+.food-name {
+    font-weight: bold;
+}
+  
+/* Style for the Total Orders and Revenue section */
+.product-status {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+  
+/* Style for the see more button */
+.seeMore-container {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 15px;
+}
+  
+.more-button {
+    padding: 10px 20px;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+  
+.more-button:hover {
+    background-color: #4d44b4;
+}
+
+
+
+/* ===== MENU GRID ===== */
+.product-list {
+    position: relative;
+    background: #E4E9F7;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: var(--tran-05);
+    padding: 12px;
+    overflow-y: auto;
+}
+  
+.sidebar.close ~ .product-list{
+    left: 78px;
+    width: calc(100% - 78px);
+}
+  
+/* Style for the "Menu Grid" container */
+.product-list-container {
+    display: grid;
+    align-content: start;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+  
+/* Container for the whole item */
+.product-list-container > .container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    height: fit-content;
+    background: #fff;
+    gap: 10px;
+}
+  
+/* Style for the image canvas */
+#canvas {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #e1e1e1;
+}
+  
+/* Style for the ID and status section */
+.id-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.food-status {
+    padding: 5px 10px;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 4px;
+}
+  
+/* Style for the description section */
+/* .food-description {
+    margin-bottom: 10px;
+} */
+  
+/* Style for the edit and delete buttons */
+.edit-button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+  
+.edit-button:hover {
+    background-color: #4d44b4;
+}
+  
+.delete-button {
+    padding: 10px 20px;
+    background-color: #373737;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+  
+.delete-button:hover {
+    background-color: #1f1f1f;
+}
+
+
+
+/* ===== ADD PRODUCT ===== */
+.add-product{
+    position: relative;
+    background: #E4E9F7;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: var(--tran-05);
+    padding: 12px;
+    overflow-y: auto;
+  }
+  
+.sidebar.close ~ .add-product{
+    left: 78px;
+    width: calc(100% - 78px);
+}
+  
+/* Style for the "Add Product" container */
+.add-product-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns, one for the form and one for the preview */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style for the "Add Product" form */
+.add-product-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  
+.add-product-form h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 20px;
+}
+  
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+  
+.form-single {
+    flex: 1;
+    margin-bottom: 15px;
+}
+  
+.form-group {
+    flex: 1;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+  
+.form-group:last-child{
+    margin-right: 0;
+}
+  
+.form-single label,
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+  
+.form-single input[type="text"],
+.form-single textarea,
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-single input[type="text"]:focus,
+.form-single textarea:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    outline: none;
+}
+  
+.form-single input[type=file] {
+    width: 100%;
+    padding: 0;
+    color: #86898c;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #dbdfe4;
+}
+  
+.form-single input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #ebebed;
+    padding: 10px 20px;
+    border-radius: 4px 0 0 4px;
+    color: #888995;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+  
+.form-single input[type=file]::file-selector-button:hover {
+    background: #dedede;
+}
+
+.filename {
+    margin-top: 30px;
+    background: #fafafa;
+    padding: 5px;
+    margin: 10px 0;
+    border-radius: 5px; 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.filename p {
+    margin: 5px 0;
+    font-family: 'Poppins', sans-serif;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.filename .delete-icon {
+    color: #f32727;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    margin-right: 10px;
+}
+  
+/* Style for the "Product Preview" container */
+.product-preview {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.product-preview h2 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 20px;
+}
+  
+/* ===== Image Preview Container ===== */
+.imageContainer {
+    width: 100%;
+    position: relative;
+}
+  
+.imagePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+  
+#mainCanvas {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    background: #e1e1e1;
+}
+  
+.bottomGallery {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 0;
+    height: 30%;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 0 0 4px 4px;
+    background-color: rgba(45, 45, 45, 0.7);
+    backdrop-filter: blur(10px);
+}
+  
+.imageGallery {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+  
+.imageGallery canvas {
+    width: auto;
+    max-height: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* ===== End of Image Preview Container ===== */
+  
+/* ===== Switch Container ===== */
+.status-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5px;
+    margin-top: 5%;
+}
+  
+.discount-switch {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 5px;
+    margin-top: 5%;
+}
+  
+.status-switch label,
+.discount-switch label {
+    display: block;
+    font-weight: bold;
+}
+  
+/* ===== Range Slider ===== */
+.rangeContainer {
+    position: relative;
+    width: 100%;
+    margin: 10px 0 50px 0;
+}
+  
+.rangeSlider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 12px;
+}
+  
+.rangeSlider:hover {
+    opacity: 1;
+}
+  
+.rangeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    cursor: pointer;
+    border-radius: 50%;
+}
+  
+.rangeSlider::-moz-range-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    cursor: pointer;
+    border-radius: 50%;
+}
+  
+/* Style the text element */
+#rangeValue {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 35px;
+    text-align: center;
+    pointer-events: none;
+    z-index: 5;
+}
+/* ===== End of Range Slider ===== */
+  
+/* Style for the labels (Status Available and Discount Available) */
+.status-switch label:last-child,
+.discount-switch label:last-child {
+    margin-right: 10px;
+}
+/* ===== End of Switch Container ===== */
+  
+  
+/* ===== Contents inside Button Container ===== */
+button.save,
+button.save-add{
+    padding: 10px 20px;
+    background-color: #32CD32;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+button.save-add{
+    background-color: var(--primary-color);
+}
+/* ===== End of Button Container ===== */
+
+
+
+/* ===== PRODCUT DETAIL ===== */
+.product-detail{
+    position: relative;
+    background: #E4E9F7;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: var(--tran-05);
+    padding: 12px;
+    overflow-y: auto;
+}
+  
+.sidebar.close ~ .product-detail{
+    left: 78px;
+    width: calc(100% - 78px);
+}
+  
+/* Style for the "Product Detail" container */
+.product-detail-container {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr; /* Single column by default */
+    gap: 20px;
+}
+  
+/* Style for the product-detail-top (Product Detail Image) */
+.product-detail-top {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+  
+.product-detail-top h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-color);
+}
+  
+.displayImageContainer {
+    width: 100%;
+    position: relative;
+}
+
+.displayImagePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#displayCanvas {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    background: #e1e1e1;
+    height: 300px;
+    object-fit: cover;
+}
+  
+/* Style for the product-detail-bottom (Product Info and Description) */
+.product-detail-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns by default */
+    gap: 20px;
+}
+  
+/* Style for the product-info (Left Side) */
+.product-info {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.product-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+  
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid var(--line-color);
+}
+  
+.info-item label {
+    font-weight: bold;
+}
+
+.info-item:last-child {
+    margin-bottom: 40px;
+}
+
+/* ===== Button Container ===== */
+button.edit,
+button.delete{
+    padding: 10px 20px;
+    background-color: #32CD32;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.edit {
+    background-color: var(--primary-color);
+}
+  
+/* Style for the product-description (Right Side) */
+.product-description {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-description h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.product-description p {
+    margin: 0;
+    line-height: 1.5;
+    padding-top: 10px;
+    border-top: 1px solid var(--line-color);
+}
+
+
+/* Media query for switching to top and bottom arrangement */
+@media (max-width: 768px) {
+    .add-product-container {
+        grid-template-columns: 1fr; /* Single column when the screen width is 768px or less */
+    }
+
+    .product-detail-container {
+        grid-template-columns: 1fr; /* Single column when the screen width is 768px or less */
+    }
+
+    .product-detail-bottom {
+        grid-template-columns: 1fr; /* Single column when the screen width is 768px or less */
+    }
+}

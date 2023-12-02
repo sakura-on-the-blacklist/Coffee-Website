@@ -1,0 +1,352 @@
+/* Google Fonts Import Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root{
+  /* ===== Colors ===== */
+  --body-color: #E4E9F7;
+  --sidebar-color: #FFF;
+  --primary-color: #695CFE;
+  /* --primary-thead-color: #8d83ff; */
+  --primary-color-light: #F6F5FF;
+  --toggle-color: #DDD;
+  --text-color: #707070;
+  --line-color: #bababa;
+
+  /* ====== Transition ====== */
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease;
+}
+
+body{
+  overflow: hidden;
+  min-height: 100vh;
+  background-color: var(--body-color);
+  transition: var(--tran-05);
+}
+
+::selection{
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+body.dark{
+  --body-color: #18191a;
+  --sidebar-color: #242526;
+  --primary-color: #3a3b3c;
+  --primary-color-light: #3a3b3c;
+  --toggle-color: #fff;
+  --text-color: #ccc;
+}
+
+h2 {
+  text-transform: uppercase;
+}
+
+/* ===== Switch ===== */
+/* toggle div */
+.toggle {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the toggle switch */
+.toggle .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+/*slider size*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+/*smth*/
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/*slider style*/
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/*slider toggle style*/
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/*changes slider color*/
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+/*changes toggle color*/
+input:checked + .slider:before{
+	background-color: #fff;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ccc;
+}
+
+/*moves the inner circle left or right*/
+input:checked + .slider:before {
+  -webkit-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  transform: translateX(30px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* ===== End of Switch ===== */
+
+/* ===== Button Container ===== */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* ===== Table ===== */
+table {
+  width: 100%;
+  /* margin-left: auto; */    /* this is used to center the table */
+  /* margin-right: auto; */    /* this is used to center the table */
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+td, 
+th {
+  font-size: 12px;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: #fafafa;
+  font-family: 'Open Sans',Sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+tr {
+  background-color: #fafafa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+tr:nth-child(odd) {
+  background-color: #ececec;
+}
+/* ===== End of Table ===== */
+
+
+@media screen and (max-width: 400px){
+  .sidebar{
+    width: 240px;
+  }
+  .sidebar.close{
+    width: 78px;
+  }
+
+  .dashboard{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .dashboard{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+
+  .product-category{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .product-category{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+  .product-list{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .product-list{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+  .add-product{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .add-product{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+  .product-detail{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .product-detail{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+
+  .orders{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .orders{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+
+  .invoice-details{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .invoice-details{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+  .invoice-list{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .invoice-list{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+  
+  .customer-list{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .customer-list{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+  .customer-review{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .customer-review{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+
+  .sales{
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .sidebar.close ~ .sales{
+    left: 78px;
+    width: calc(100% - 78px);
+  }
+}
+
+
+
+
+/* LOGOUT */
+/* Styles for the overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styles for the popup */
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Styles for the buttons */
+.logout-btnContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.closeLogout {
+  border-radius: 15px;
+  padding: 10px;
+  width: 78px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #695CFE;
+  background: none;
+  color: #695CFE;
+}
+
+.closeLogout:hover {
+  cursor: pointer;
+  border: 1px solid #695CFE;
+  background: #695CFE;
+  color: #fff;
+}
+
+.logout {
+  border-radius: 15px;
+  padding: 10px;
+  margin: 5px;
+  width: 78px;
+  cursor: pointer;
+  border: 1px solid #695CFE;
+  background: #695CFE;
+  color: #fff;
+}
+
+.logout:hover {
+  cursor: pointer;
+  border: 1px solid #695CFE;
+  background: #5748f6;
+}
