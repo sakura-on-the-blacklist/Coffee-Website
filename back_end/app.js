@@ -76,7 +76,7 @@ const conn = mysql.createConnection({
 
       // Now you have the user data, and you can proceed with further checks or actions.
       const secretKey = 'ifhvseiguehrifvuejsrfiu';
-      const token = jwt.sign({ id: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ id: user.customer_id, email: user.email, role: user.role }, secretKey, { expiresIn: '1h' });
 
       res.status(200).json({ message: 'Login successful', token });
   });
@@ -84,45 +84,182 @@ const conn = mysql.createConnection({
 
 
   //MIDDLEWARE//
-  const authToken = (req, res, next) => {
-    const authHeader = req.headers["authorization"];
+  // Middleware for login user authorization
+const authToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
 
-    if (!authHeader) {
-        return res.status(401).json({ message: "Unauthorized: Missing token" });
-    }
+  if (!authHeader) {
+      return res.status(401).json({ message: "Unauthorized: Missing token" });
+  }
 
-    const token = authHeader.split(" ")[1];
-    console.log(token);
+  const token = authHeader.split(" ")[1];
+  console.log(token);
 
-    jwt.verify(token, 'ifhvseiguehrifvuejsrfiu', (error, decoded) => {
-        if (error) {
-            console.error(error);
-            return res.status(401).json({ message: "Unauthorized token" });
-        }
-
-        // Assign the decoded user information to the request object
-        req.user = decoded;
-
-        // Call the next middleware in the stack
-        next();
-    });
+  try {
+      const decoded = jwt.verify(token, 'ifhvseiguehrifvuejsrfiu');
+      console.log(decoded);
+      req.user = decoded;
+      next();
+  } catch (error) {
+      console.error(error);
+      return res.status(401).json({ message: "Unauthorized token" });
+  }
 };
 
+
+///////User order system
+app.post('/placeOrder', authToken, (req, res) => {
+
+  const customer_id = req.user.customer_id;
+
+  if (!customer_id) {
+    return res.status(400).json({ error: 'Customer ID is missing or invalid.' });
+  }
+
+  conn.query("INSERT INTO cust_order (customer_id) VALUES (?)", [customer_id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Failed to insert order.' });
+    }
+
+    const order_id = results.insertId;
+
   
+    conn.query("INSERT INTO food_order (food_id, order_id, quantity) VALUES (?, ?, ?)", [req.body.food_id, order_id, req.body.quantity], (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Failed to insert food order.' });
+      }
+
+    
+      conn.query("INSERT INTO location (customer_id, city, barangay, address) VALUES (?, ?, ?, ?)", [customer_id, req.body.city, req.body.barangay, req.body.address], (err, results) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: 'Failed to insert location.' });
+        }
+
+
+        res.send('Order placed successfully');
+      });
+    });
+  });
+});
+
+
+
+
+
+function adminToken(req,res,next){
+
+  if(req.user.role == 1){
+    next()
+  }else{
+    res.send({message: "access denied"})
+  }
+
+}
 
   ////posting foods is only allowed by admins
-  app.post('/postFood', authToken,(req,res)=>{
-    if(req.user.role == 1){
+  app.post('/postFood', authToken, adminToken,(req,res)=>{
+    console.log(req.user.role)
+
     conn.query("INSERT INTO food(food_name, description, price, quantity) VALUES (?,?,?,?)", [req.body.food_name, req.body.description, req.body.price, req.body.quantity], (error, data)=>{
       if(req.body.food_name != undefined && req.body.description != undefined && req.body.price && req.body.quantity){
         
         console.log(req.body)
         res.send(data)
+        }else{
+          res.send(error)
         }
         })
-      }else{
-        res.send({message: "has no authorization"})
       }
+  )
+
+  //////Menu updates
+  app.put('/updateMenu/:food_id', authToken, adminToken, (req, res) => {
+    const { food_name, description, price, quantity } = req.body;
+    const foodId = req.params.food_id;
+
+    const setFields = [];
+    if (food_name !== undefined) setFields.push(`food_name = "${food_name}"`);
+    if (description !== undefined) setFields.push(`description = "${description}"`);
+    if (price !== undefined) setFields.push(`price = ${price}`);
+    if (quantity !== undefined) setFields.push(`quantity = ${quantity}`);
+  
+    const setClause = setFields.join(', ');
+  
+    const sqlQuery = `UPDATE food SET ${setClause} WHERE food_id = ${foodId}`;
+  
+    conn.query(sqlQuery, (error, data) => {
+      if (error === null) {
+        res.send(data);
+      } else {
+        res.send(error);
+      }
+    });
+  });
+  
+  
+
+  /////Delete the Food from the menu completely
+  // app.delete('/deleteFood/:food_id', authToken, adminToken, (req,res)=>{
+  //   conn.query(`DELETE FROM food WHERE food_id = ${req.params.food_id}`, (error, data)=>{
+  //     if(error==null){
+  //       res.send(data);
+  //     }else{
+  //       res.send(error);
+  //     }
+  //   })
+  // })
+
+  //////soft delete the food
+
+app.delete('/deleteFood/:food_id', authToken, adminToken, (req, res) => {
+  const foodId = req.params.food_id;
+  const sqlQuery = `UPDATE food SET deleted_at = CURRENT_TIMESTAMP WHERE food_id = ${foodId}`;
+
+  conn.query(sqlQuery, (error, data) => {
+    if (error === null) {
+      res.send(data);
+    } else {
+      res.send(error);
+    }
+  });
+});
+
+  ///////item restoration
+  app.put('/restoreMenu/:food_id', authToken, adminToken, (req, res) => {
+    const foodId = req.params.food_id;
+  
+    const sqlQuery = `UPDATE food SET deleted_at = NULL WHERE food_id = ${foodId}`;
+  
+    conn.query(sqlQuery, (error, data) => {
+      if (error === null) {
+        res.send(data);
+      } else {
+        res.send(error);
+      }
+    });
+  });
+  
+
+  //////only admin can see the list of custoemrs
+  app.get('/getCust', authToken, adminToken, (req,res)=>{
+    conn.puery("SELECT * FROM customer",(error,data)=>{
+      if(error == null){
+        res.send(data)
+      }else{
+        res.send(error)
+      }
+    })
+  })
+
+
+  /////ok!
+  app.get('/protected', authToken, adminToken,(req,res)=>{
+    res.json({
+      message:"yey! you gone thru middleware"
+    })
   })
 
 
