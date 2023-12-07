@@ -76,7 +76,7 @@ const conn = mysql.createConnection({
 
       // Now you have the user data, and you can proceed with further checks or actions.
       const secretKey = 'ifhvseiguehrifvuejsrfiu';
-      const token = jwt.sign({ id: user.customer_id, email: user.email, role: user.role }, secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ customer_id: user.customer_id, email: user.email, role: user.role }, secretKey, { expiresIn: '1h' });
 
       res.status(200).json({ message: 'Login successful', token });
   });
@@ -105,6 +105,16 @@ const authToken = (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized token" });
   }
 };
+
+function adminToken(req,res,next){
+
+  if(req.user.role == 1){
+    next()
+  }else{
+    res.send({message: "access denied"})
+  }
+
+}
 
 
 ///////User order system
@@ -137,27 +147,75 @@ app.post('/placeOrder', authToken, (req, res) => {
           console.error(err);
           return res.status(500).json({ error: 'Failed to insert location.' });
         }
-
-
         res.send('Order placed successfully');
       });
     });
   });
 });
 
+/////////displaying only their orders
+app.get('/displayYourOrder', authToken, (req, res) => {
+  const customer_id = req.user.customer_id;
+
+  const query = `
+    SELECT f.food_name, fo.quantity, co.status
+    FROM food_order fo
+    INNER JOIN cust_order co ON fo.order_id = co.order_id
+    INNER JOIN customer c ON co.customer_id = c.customer_id
+    INNER JOIN food f ON fo.food_id = f.food_id
+    WHERE c.customer_id = ?
+  `;
+
+  conn.query(query, [customer_id], (error, results) => {
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    res.json(results);
+  });
+});
 
 
+//////////displaying the ALL orders (available for admins)
+app.get('/displayOrder', authToken, adminToken, (req, res)=>{
+  conn.query(`SELECT fo.order_id, 
+  f.food_name, 
+  fo.quantity, 
+  c.username, 
+  co.status,
+  l.city,
+  l.barangay,
+  l.address
+  FROM food_order fo INNER JOIN food cust_order co 
+  ON fo.order_id = co.order_id 
+  INNER JOIN customer c ON co.customer_id = c.customer_id 
+  INNER JOIN food f ON fo.food_id = f.food_id
+  INNER JOIN location l ON l.customer_id = c.customer_id
+  WHERE f.quantity != 0`, (error, data)=>{
+    if(error==null){
+      res.send(data);
+    }else{
+      res.send(error);
+    }
+  })
+})
 
 
-function adminToken(req,res,next){
+/////////Admin can change the status according to resto's order progress
+app.put('/editStatus', authToken, adminToken, (req, res)=>{
+  conn.query(`UPDATE cust_order SET status=${req.body.status} WHERE order_id = ${req.params.order_id}`, (error, data)=>{
+    if(error == null){
+      res.send(data);
+    }else{
+      res.send(error);
+    }
+  })
+})
 
-  if(req.user.role == 1){
-    next()
-  }else{
-    res.send({message: "access denied"})
-  }
+////////Delete the order if the status becomes DELIVERED
 
-}
+
 
   ////posting foods is only allowed by admins
   app.post('/postFood', authToken, adminToken,(req,res)=>{
