@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 const crypto = require('crypto-js');
 var jwt = require('jsonwebtoken');
 const{ listen } = require('express/lib/application')
-const port = 3000
+const port = 5555
 
 app.use(express.json())
 app.use(cors())
@@ -24,25 +24,38 @@ const conn = mysql.createConnection({
   //////////sign up
 
   app.post('/customersSignUp', (req, res) => {
-    // Input validation - Check for required fields
+ 
     if (!req.body.username || !req.body.email || !req.body.mobile_number || !req.body.password) {
-        return res.status(400).json({ error: 'All fields are required' });
+      return res.status(400).json({ error: 'All fields are required' });
     }
-
-    // Insert data into the database
-    conn.query("INSERT INTO customer(username, email, mobile_number, password, role) VALUES (?,?,?,?,?)", 
-        [req.body.username, req.body.email, req.body.mobile_number, req.body.password, 0], 
-        (error, data) => {
-            if (error) {
-                console.error(error);
-                return res.status(500).json({ error: 'Internal Server Error' });
-            }
-
-            console.log(data);
-            res.status(201).json({ success: true, data });
+  
+    conn.query("SELECT * FROM customer WHERE username = ? OR email = ?", [req.body.username, req.body.email], (error, existingData) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+  
+      if (existingData.length > 0) {
+        
+        return res.status(400).json({ error: 'Username or email already exists. Please choose different data.' });
+      }
+  
+    
+      conn.query("INSERT INTO customer(username, email, mobile_number, password, role) VALUES (?,?,?,?,?)",
+        [req.body.username, req.body.email, req.body.mobile_number, req.body.password, 0],
+        (insertError, data) => {
+          if (insertError) {
+            console.error(insertError);
+            return res.status(500).json({ error: 'Internal Server Error' });
+          }
+  
+          console.log(data);
+          res.status(201).json({ success: true, data });
         }
-    );
-});
+      );
+    });
+  });
+  
 
 
   ////getting the list of foods is available to everyone

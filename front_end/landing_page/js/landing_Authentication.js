@@ -41,33 +41,33 @@ function stopPropagation(event) {
 
 
 // Toggle Policy Details
-function togglePolicyDetails() {
-    var policyDetails = document.getElementById("policy-details");
-    policyDetails.style.display = policyDetails.style.display === "none" ? "block" : "none";
-}
+// function togglePolicyDetails() {
+//     var policyDetails = document.getElementById("policy-details");
+//     policyDetails.style.display = policyDetails.style.display === "none" ? "block" : "none";
+// }
 
-// Check if the scroll position is at the bottom
-function isScrollAtBottom(element) {
-    return element.scrollHeight - element.scrollTop <= element.clientHeight + 1;
-}
+// // Check if the scroll position is at the bottom
+// function isScrollAtBottom(element) {
+//     return element.scrollHeight - element.scrollTop <= element.clientHeight + 1;
+// }
 
-// Enable or disable the accept button based on scroll position
-function handleScroll() {
-    var scrollableDiv = document.querySelector(".scrollable-div");
-    var acceptButton = document.getElementById("accept-button");
+// // Enable or disable the accept button based on scroll position
+// function handleScroll() {
+//     var scrollableDiv = document.querySelector(".scrollable-div");
+//     var acceptButton = document.getElementById("accept-button");
 
-    if (isScrollAtBottom(scrollableDiv)) {
-        acceptButton.removeAttribute("disabled");
-        acceptButton.style.backgroundColor = "#C87E4F"; // Enabled background color
-        acceptButton.style.cursor = "pointer"; // Enabled cursor style
-        acceptButton.style.transition = "background-color 0.3s ease"; // Transition effect for smooth color change
-    } else {
-        acceptButton.setAttribute("disabled", "disabled");
-        acceptButton.style.backgroundColor = "#868686"; // Disabled background color
-        acceptButton.style.cursor = "default"; // Disabled cursor style
-        acceptButton.style.transition = "none"; // Remove transition for the disabled state
-    }
-}
+//     if (isScrollAtBottom(scrollableDiv)) {
+//         acceptButton.removeAttribute("disabled");
+//         acceptButton.style.backgroundColor = "#C87E4F"; // Enabled background color
+//         acceptButton.style.cursor = "pointer"; // Enabled cursor style
+//         acceptButton.style.transition = "background-color 0.3s ease"; // Transition effect for smooth color change
+//     } else {
+//         acceptButton.setAttribute("disabled", "disabled");
+//         acceptButton.style.backgroundColor = "#868686"; // Disabled background color
+//         acceptButton.style.cursor = "default"; // Disabled cursor style
+//         acceptButton.style.transition = "none"; // Remove transition for the disabled state
+//     }
+// }
 
 // Add an event listener to the scrollable-div
 document.querySelector(".scrollable-div").addEventListener("scroll", handleScroll);
